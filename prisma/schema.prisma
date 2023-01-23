@@ -9,3 +9,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model Courses {
+  id          Int        @id @default(autoincrement())
+  courseId    Int
+  Course      Course     @relation(fields: [courseId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Course {
+  id          Int         @id @default(autoincrement())
+  course      String      @db.VarChar(255)
+  classShift  String      @db.VarChar(255)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  Courses     Courses[]
+  Periods     Periods[]
+}
+
+model Periods {
+  id          Int         @id @default(autoincrement())
+  courseId    Int
+  Course      Course      @relation(fields: [courseId], references: [id])
+  period      Int
+  chair       String      @db.VarChar(255)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
