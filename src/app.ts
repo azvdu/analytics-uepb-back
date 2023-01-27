@@ -8,15 +8,16 @@ import { loadEnv } from "./config/envs";
 
 loadEnv()
 
-import { coursesRouter } from "@/routers";
-import { periodsRouter } from "./routers/periods-router";
+import { adminRouter, coursesRouter } from "@/routers";
+import { chairsRouter  } from "./routers/chairs-router";
 
 const app = express();
 app
     .use(cors())
     .use(express.json())
     .use("/courses", coursesRouter)
-    .use("/periods", periodsRouter)
+    .use("/chairs", chairsRouter)
+    .use("/signUp", adminRouter)
 
 
 export function init(): Promise<Express> {
@@ -24,8 +25,9 @@ export function init(): Promise<Express> {
     return Promise.resolve(app);
 }
 
-export async function close(): Promise<void> {
-    await disconnectDB()
+export async function close(): Promise<Express> {
+    disconnectDB()
+    return Promise.resolve(app);
 }
 
 export default app;

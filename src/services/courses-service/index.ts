@@ -1,10 +1,10 @@
-import { notFoundError } from "@/errors";
 import coursesRepository from "@/repositories/courses-repository";
+import httpStatus from "http-status";
 
 async function getCourses(){
     const courses = await coursesRepository.findCourses();
     if(!courses){
-        throw notFoundError();
+        throw{type: httpStatus.NOT_FOUND, message: "No result for this search!"};
     }
     return courses;
 }

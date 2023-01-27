@@ -1,11 +1,9 @@
-import { ApplicationError } from "@/utils/protocols";
-import { Request, Response } from "express";
-import httpStatus from "http-status";
+import { AppError, errorTypeToStatusCode, isAppError } from "@/utils/errorUtils";
+import { NextFunction, Request, Response } from "express";
 
-export function handleApplicationError(err: ApplicationError | Error, _req: Request, res: Response) {
-    if(err.name === "NotFoudError") {
-        return res.status(httpStatus.NOT_FOUND).send({
-            message: err.message,
-        });
+export function errorHandlerMiddleware(err: Error | AppError, req: Request, res: Response, next: NextFunction){
+    if(isAppError(err)){
+        return res.status(errorTypeToStatusCode(err.type)).send(err.message)
     }
+    return res.sendStatus(500)
 }

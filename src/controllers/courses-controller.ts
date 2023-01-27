@@ -11,5 +11,6 @@ export async function getCourses(req: Request, res: Response) {
         if(error.name === "NotFoundError") {
             return res.sendStatus(httpStatus.NOT_FOUND);
         }
+        return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
     }
 }

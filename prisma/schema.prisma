@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,31 +7,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Courses {
-  id          Int        @id @default(autoincrement())
-  courseId    Int
-  Course      Course     @relation(fields: [courseId], references: [id])
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id        Int      @id @default(autoincrement())
+  courseId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Course    Course   @relation(fields: [courseId], references: [id])
 }
 
 model Course {
-  id          Int         @id @default(autoincrement())
-  course      String      @db.VarChar(255)
-  classShift  String      @db.VarChar(255)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  Courses     Courses[]
-  Periods     Periods[]
+  id         Int       @id @default(autoincrement())
+  course     String    @db.VarChar(255)
+  classShift String    @db.VarChar(255)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Courses    Courses[]
+  // Periods    Periods[] @relation("Course")
+  Chairs     Chairs[]
 }
 
-model Periods {
-  id          Int         @id @default(autoincrement())
-  courseId    Int
-  Course      Course      @relation(fields: [courseId], references: [id])
-  period      Int
-  chair       String      @db.VarChar(255)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+// model Periods {
+//   id        Int      @id @default(autoincrement())
+//   period    Int
+//   courseId  Int
+//   Course    Course   @relation(name: "Course", fields: [courseId], references: [id])
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   Period    Chairs[]
+// }
+
+model Chairs {
+  id        Int      @id @default(autoincrement())
+  courseId  Int
+  Course    Course   @relation(fields: [courseId], references: [id])
+  period  Int
+  // Period    Periods  @relation(fields: [periodId], references: [id])
+  chair     String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Admin {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
