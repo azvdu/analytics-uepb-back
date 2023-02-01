@@ -22,26 +22,15 @@ model Course {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   Courses    Courses[]
-  // Periods    Periods[] @relation("Course")
   Chairs     Chairs[]
 }
 
-// model Periods {
-//   id        Int      @id @default(autoincrement())
-//   period    Int
-//   courseId  Int
-//   Course    Course   @relation(name: "Course", fields: [courseId], references: [id])
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   Period    Chairs[]
-// }
 
 model Chairs {
   id        Int      @id @default(autoincrement())
   courseId  Int
   Course    Course   @relation(fields: [courseId], references: [id])
-  period  Int
-  // Period    Periods  @relation(fields: [periodId], references: [id])
+  period    Int
   chair     String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

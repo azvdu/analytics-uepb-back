@@ -6,7 +6,14 @@ async function getCourses(){
     if(!courses){
         throw{type: httpStatus.NOT_FOUND, message: "No result for this search!"};
     }
-    return courses;
+    
+    for(let i = 0; i < courses.length; i++){
+        const allCourses = []
+       if(courses[i]){
+        allCourses.push(courses[i])
+       }
+       return courses
+    }
 }
 
 

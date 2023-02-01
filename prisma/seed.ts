@@ -11,6 +11,36 @@ async function main() {
                 classShift: "INTEGRAL"
             },
         });
+        course = await prisma.course.create({
+            data: {
+                course: "PSICOLOGIA",
+                classShift: "INTEGRAL"
+            },
+        });
+        course = await prisma.course.create({
+            data: {
+                course: "HISTÓRIA",
+                classShift: "INTEGRAL"
+            },
+        });
+        course = await prisma.course.create({
+            data: {
+                course: "ADMINISTRAÇÃO",
+                classShift: "INTEGRAL"
+            },
+        });
+        course = await prisma.course.create({
+            data: {
+                course: "DIREITO",
+                classShift: "INTEGRAL"
+            },
+        });
+        course = await prisma.course.create({
+            data: {
+                course: "ODONTOLOGIA",
+                classShift: "INTEGRAL"
+            },
+        });
     }
 
     let chairs = await prisma.chairs.findFirst()
